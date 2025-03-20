@@ -74,6 +74,17 @@ ggplot(flowcell, aes(x = length, y = qscore)) +
   ggtitle("scatterplot of qscore vs length")
 ```
 on a log scale we can see a clear separation as expected because the qscore was bimodal 
+this is also what we expected as longer codes should have a higher quality score 
+
+```{r}
+ggplot(flowcell, aes(x = length, y = qscore, color = qscore> 7)) +
+  geom_point(size = 0.1, alpha = 0.2) +
+  geom_smooth(method = "lm") +
+  scale_x_log10() +
+  ggtitle("scatterplot of qscore vs length")
+```
+
+
 
 # **Task 3**: Comparing flowcells
 
