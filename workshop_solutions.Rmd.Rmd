@@ -93,19 +93,17 @@ Make a visualisation to show how the output per channel (the total amount of dat
 we can see that they are different 
 ```{r}
 ggplot(flowcell_summary, aes(x = flowcell, y =  channel, fill = total_output_MB)) + 
-  geom_bar(stat = "identity") +
+  geom_col() +
   scale_fill_viridis_b() +
   ggtitle("Output per channel of A and B flowcells")
 
 ```
 
+we can see flowcell A and B are different, but this probably isnt the best way to show the data
+
 # **Task 4**: Are the flowcells faulty?
 
-```{r}
-ggplot(flowcell_summary, aes(x=col, y = row, fill = total_output_MB)) + 
-  geom_raster() 
-```
-
+make different charts for flowcell A and B
 ```{r}
 ggplot(flowcell_summary, aes(x = col, y = row, fill = total_output_MB)) + 
   geom_raster() +
