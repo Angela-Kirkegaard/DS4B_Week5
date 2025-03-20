@@ -77,15 +77,43 @@ on a log scale we can see a clear separation as expected because the qscore was 
 this is also what we expected as longer codes should have a higher quality score 
 
 ```{r}
-ggplot(flowcell, aes(x = length, y = qscore, color = qscore> 7)) +
+ggplot(flowcell, aes(x = length, y = qscore, color = qscore > 7)) +
   geom_point(size = 0.1, alpha = 0.2) +
-  geom_smooth(method = "lm") +
+    geom_smooth(method = "lm") +
   scale_x_log10() +
-  ggtitle("scatterplot of qscore vs length")
+  ggtitle("scatterplot of qscore vs log10 length")
 ```
 
-
+As predicted longer reads ones have a higher quality score 
 
 # **Task 3**: Comparing flowcells
 
+Make a visualisation to show how the output per channel (the total amount of data produced by each channel over the course of the run) varies between flowcell A and flowcell B.
+
+we can see that they are different 
+```{r}
+ggplot(flowcell_summary, aes(x = flowcell, y =  channel, fill = total_output_MB)) + 
+  geom_bar(stat = "identity") +
+  scale_fill_viridis_b() +
+  ggtitle("Output per channel of A and B flowcells")
+
+```
+
 # **Task 4**: Are the flowcells faulty?
+
+```{r}
+ggplot(flowcell_summary, aes(x=col, y = row, fill = total_output_MB)) + 
+  geom_raster() 
+```
+
+```{r}
+ggplot(flowcell_summary, aes(x = col, y = row, fill = total_output_MB)) + 
+  geom_raster() +
+  scale_fill_viridis_c() +  
+  facet_wrap(~ flowcell) +  # Creates separate plots for A & B
+  labs(title = "Total Output per Channel for Flowcells A & B", 
+       x = "Column", y = "Row", fill = "Total Output (MB)") +
+  theme_minimal()
+```
+certain channels seem fault, and there are more vaulty channels in flowcell B
+
