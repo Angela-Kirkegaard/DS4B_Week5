@@ -46,14 +46,34 @@ skim(flowcell_summary)
 ```
 it has 512 channels which is good
 total number of bases sequenced is skewed so theres less bases 
-row is uniformly distributed which is good because this shouldn't change 
-column drops off at the end which makes sense as maybe all the collumns didnt fill up
+row is uniformly distributed which is good because this shouldn't change and max is 32
+column drops off at the end which makes sense as maybe all the collumns didnt fill up. max is 16 as it should be
 
 
 
 
 
 # **Task 2**: Overview Plot
+
+create a plot with read length on the x-axis, read quality on the y-axis and include the raw data as much as possible. 
+
+make a scatterplot with a trendline, make points small and transparent 
+
+```{r}
+ggplot(flowcell, aes(x = length, y = qscore)) +
+  geom_point(size = 0.1, alpha = 0.5) +
+  geom_smooth()
+```
+not much relationship seen here, could try length on log scale to zoom in on data
+
+```{r}
+ggplot(flowcell, aes(x = length, y = qscore)) +
+  geom_point(size = 0.1, alpha = 0.2) +
+  geom_smooth(method = "lm") +
+  scale_x_log10() +
+  ggtitle("scatterplot of qscore vs length")
+```
+on a log scale we can see a clear separation as expected because the qscore was bimodal 
 
 # **Task 3**: Comparing flowcells
 
