@@ -15,6 +15,43 @@ output:
 ---
 
 # **Task 1**: Loading the data
+Load data
+```{r}
+library("tidyverse")
+
+flowcell <- read_csv("raw_data/flowcell_A.csv")
+flowcell_summary <- read_csv("raw_data/two_flowcell_channel_summary.csv")
+```
+use skimr to get overview 
+flowcell is raw data from a single flowcell, flowcell A. Every row represents a single sequencing read
+```{r}
+library(skimr)
+
+skim(flowcell)
+
+```
+channel has 512 variables which is correct 
+time start in seconds is skewed to be shorter time 
+length is also skewed to be shorter (which is not good because longer is better)
+the mean of q score is 7.85, which means about half are considered good and half are considered bad (but more good)
+the q score is also bimodal with two obvious peaks 
+hour matches seconds which makes sense 
+
+
+flowcell_summary summarises the total output for each of the 512 channels in two flowcells - flowcell A and flowcell B
+```{r}
+library(skimr)
+
+skim(flowcell_summary)
+```
+it has 512 channels which is good
+total number of bases sequenced is skewed so theres less bases 
+row is uniformly distributed which is good because this shouldn't change 
+column drops off at the end which makes sense as maybe all the collumns didnt fill up
+
+
+
+
 
 # **Task 2**: Overview Plot
 
